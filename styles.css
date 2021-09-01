@@ -1,0 +1,132 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+:root {
+  --primary-color: #4f46e5;
+  --secondary-color: #eef2ff;
+}
+body {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+}
+
+.navigation {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5rem;
+}
+
+.brand-name {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.list-item-inline {
+  display: inline;
+  padding: 0rem 0.5rem;
+}
+
+.list-non-bullet {
+  list-style: none;
+  margin-block-start: 0em;
+  margin-block-end: 0em;
+  padding-inline-start: 0px;
+}
+
+.nav-pills {
+  text-align: right;
+  padding: 0rem 1.5rem;
+}
+
+.link {
+  box-sizing: border-box;
+  text-decoration: none;
+  color: white;
+}
+
+.link-active {
+  font-weight: bold;
+}
+
+.header {
+  padding: 0.5rem;
+}
+
+.header-image {
+  display: block;
+  margin: auto;
+  max-width: 80%;
+  width: 500px;
+}
+
+.hero-text {
+  text-align: center;
+}
+
+.section {
+  margin: auto;
+  max-width: 80%;
+}
+.item-section {
+  background: var(--secondary-color);
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.item-section-ow {
+  background-color: white;
+  padding: 1.5rem;
+  margin: auto;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.item-section > h1,
+p {
+  text-align: center;
+}
+.item-section-ow > h1,
+p {
+  text-align: center;
+}
+
+.link-primary {
+  display: block;
+  max-width: 140px;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  margin: 1rem auto;
+  border-radius: 2rem;
+  text-align: center;
+}
+
+.link-secondary {
+  display: block;
+  max-width: 140px;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  margin: 1rem auto;
+  border-radius: 2rem;
+  text-align: center;
+}
+
+.footer {
+  background-color: var(--primary-color);
+  display: block;
+  margin: auto;
+  margin-top: 1.5rem;
+  max-width: 80%;
+  padding: 2rem 0rem;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  color: white;
+}
+
+.footer > h3,
+ul {
+  text-align: center;
+}
