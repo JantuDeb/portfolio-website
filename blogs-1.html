@@ -1,0 +1,843 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Array methods in JavaScript</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="ca5099ad-68bb-410d-96bd-4ad8d4252b30" class="page sans"><header><h1 class="page-title">Array methods in JavaScript</h1><table class="properties"><tbody></tbody></table></header><div class="page-body"><p id="a1dc639f-4692-4161-a240-cf6601ffce80" class="">The array is a widely used data structure in JavaScript.</p><p id="0d6cf958-958a-46e8-b2c9-faaf1d127831" class="">You can perform a number of operations on arrays like iteration, inserting items, removing items, filter items, sorting, transformations of item and so on. To do so the array object provides useful built in methods.</p><p id="3a0802b4-b752-4689-8797-3a3d20cba3ec" class="">Here some of the implementation of array methods in JavaScript.</p><h2 id="4fe52eae-da68-4131-9375-8f36ef515f1c" class="">1. Iterate</h2><h3 id="5f4c63d7-a9f3-461d-8a16-075afdb20e32" class="">1.1 <em>for...of</em></h3><p id="8932fc0d-1a82-46d6-bbd7-c28139704194" class="">The <code><mark class="highlight-red">for...of</mark></code> statement creates a loop iterating over iterable objects</p><p id="7edea5ba-5e8c-4cbd-b775-a760711511fd" class=""><code>for(const item of items)</code> cycle iterates over array items.</p><p id="99c7727c-7d59-4861-94e7-940a0c58b914" class="">Let’s iterate over a list of <code>colors</code>:</p><p id="591f9b27-0dd3-4c47-aabe-45f17bac1da0" class="">On each iteration, the variable <code>color</code> is assigned with the iterated item.</p><pre id="7a7ec187-397e-4ac6-b0eb-8d399759f5ef" class="code code-wrap"><code>const colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;white&#x27;, &#x27;red&#x27;];
+for (const color of colors) {
+  console.log(color);
+}
+
+// expected output: &quot;blue&quot;
+// expected output: &quot;green&quot;
+// expected output: &quot;white&quot;
+// expected output: &quot;red&quot;
+</code></pre><ul id="c7daa833-3285-4158-926c-53ff90a5d991" class="bulleted-list"><li style="list-style-type:disc">You can stop iterating at any time using a <code>break</code> statement.</li></ul><p id="ebafd2bc-638d-4f69-bfa8-ed0c73db247d" class="">
+</p><p id="7f2baf9d-8893-4074-ac7e-bd17eb034521" class="">You can use <code>let</code> instead of <code>const</code> too, if you reassign the variable inside the block.</p><pre id="4c768678-bd69-4e7c-9740-92ef881dbb5f" class="code"><code>const iterable = [10, 20, 30];
+for (let value of iterable) {
+console.log(value);
+}
+// 10
+// 20
+// 30</code></pre><p id="3e101092-7a57-4a69-8821-65458f6c67f0" class="">
+</p><h3 id="7c19bbdc-b725-4baf-92f2-534b79a9a200" class="">1.2 <em>for</em></h3><p id="0e3348a9-5242-4491-bf0c-96e578ce12f0" class=""><code>for(let i; i &lt; array.length; i++)</code> cycle iterates over array items using an incrementing index variable.</p><h1 id="1ae02dfc-7db3-4cec-9260-e1e228fe7abc" class=""><strong>Syntax</strong></h1><pre id="3d9de951-ec1d-4d3a-b8bc-7eeb28617ab7" class="code"><code>for ([initialization]; [condition]; [final-expression])
+statement
+</code></pre><pre id="201e779b-a9ad-4c5e-9bbd-fdb8c20f1077" class="code code-wrap"><code>const colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;white&#x27;];
+for (let index = 0; index &lt; colors.length; index++) {
+  const color = colors[index];
+  console.log(color);
+}
+// &#x27;blue&#x27;
+// &#x27;green&#x27;
+// &#x27;white&#x27;
+
+</code></pre><p id="dc60bf1e-2fc3-46f9-85bf-377280c493f1" class=""><code>index</code> variable increments from <code>0</code> until <code>colors.length - 1</code>. This variable is used to access the item by index: <code>colors[index]</code>.</p><p id="6330fe3b-c2a8-4e56-8fe3-526b5a78bd52" class="">
+</p><p id="801f2ab5-3483-4fa0-b566-7dde7d819719" class=""><strong>You can stop iterating at any time using a </strong><strong><code>break</code></strong><strong> statement.</strong></p><pre id="3cc1ad99-61d0-4a6f-be1d-3de456458a95" class="code code-wrap"><code>for (let i = 0; i &lt; 5; i++) {
+   console.log(i);
+   if(i===3) break;
+}
+// 1
+// 2
+// 3
+</code></pre><h3 id="7306f86d-7c6c-46c9-a238-eda4f115b008" class="">1.3 <em>array.forEach()</em> method</h3><p id="bc1bbb98-c352-445c-af9e-a3b47db87a80" class=""><code>array.forEach(callback)</code> method iterates over array items by invoking <code>callback</code> function on every array item.</p><p id="3c870b6c-e7c6-44f9-b546-0785a6f8fea2" class="">The <code>forEach()</code> method executes a provided <code>callback</code> function once for each array element.</p><h1 id="ae283f9b-7a1f-4772-b9c2-2f5499205054" class=""><strong>Syntax</strong></h1><pre id="95986508-d111-4b37-a0e8-f8669a087f6c" class="code"><code>// Arrow function
+forEach((element) =&gt; { ... } )
+forEach((element, index) =&gt; { ... } )
+forEach((element, index, array) =&gt; { ... } )
+
+// Callback function
+forEach(callbackFn)
+
+// Inline callback function
+forEach(function callbackFn(element) { ... })
+forEach(function callbackFn(element, index) { ... })
+forEach(function callbackFn(element, index, array){ ... })</code></pre><h3 id="a2468720-6fc8-476d-a2ab-ab2f61e6bd35" class="">Parameters</h3><p id="e3282fb8-65a9-4deb-90fb-6fb3e3f6374d" class=""><code><strong>callbackFn</strong></code><div class="indented"><p id="32d94e7c-5221-43c5-8c7b-85c110bf48d4" class="">Function to execute on each element. It accepts between one and three arguments:<div class="indented"><p id="8cb9e7bf-314d-4fa2-9b49-f1c38b5bba53" class=""><code><strong>element</strong></code>The current element being processed in the array.</p><p id="f1411f88-ed13-42ea-b61e-7a3695908325" class=""><code><strong>index</strong></code><strong> Optional </strong></p><p id="59464ad8-a7fd-41d8-a125-f07ec780ffea" class="">The index of <code>element</code> in the array.</p><p id="1060501e-d580-486b-8e08-9a19a882feb6" class=""><code><strong>array</strong></code><strong> Optional </strong></p><p id="723ef513-831c-4b3d-9987-b3cbfb4377fb" class="">The array <code>forEach()</code> was called upon.</p></div></p></div></p><p id="11fa8f3d-b09d-4f58-98bb-f82ef6fe1df3" class="">
+</p><p id="f4365c2f-5850-4526-9ed6-d56ba2276685" class="">
+</p><p id="ea476c83-e94c-49c3-b5b5-5383326a381f" class="">Let’s iterate over <code>colors</code> array:</p><pre id="4910d74d-f5b0-4d67-84e1-849419e11e19" class="code code-wrap"><code>const colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;white&#x27;];
+colors.forEach(function callback(value, index) {
+  console.log(value, index);
+});
+// &#x27;blue&#x27;, 0
+// &#x27;green&#x27;, 1
+// &#x27;white&#x27;, 2
+
+
+// Arrow function
+colors.forEach((color, index)=&gt;console.log(color, index))</code></pre><p id="6ab3fb6e-e00a-464b-9851-0fa13a2dde7b" class=""><code>array.forEach(callback)</code> invokes <code>callback</code> 3 times for every item in the array: <code>&#x27;blue&#x27;</code>, <code>&#x27;green&#x27;</code> and <code>&#x27;white&#x27;</code>. and logs the item.</p><ul id="e12d347b-1df6-4581-8d81-e72b91bea05a" class="bulleted-list"><li style="list-style-type:disc">You cannot break <code>array.forEach()</code> iterating.</li></ul><h2 id="de551212-9f67-447b-8830-07c736e5a990" class="">2. Map</h2><h3 id="e871c8e2-88e9-40c9-a1d7-661418955e2d" class="">2.1 <em>array.map()</em> method</h3><p id="2ddec532-3750-462a-953a-c94a098a0840" class=""> <p>The <code>map()</code> method creates a new array populated with the results of calling a provided function on every element in the calling array.</p> The <code>array.map(callback)</code> method creates to a new array by using <code>callback</code> invocation result on each array item.</p><p id="b212102f-0ab3-4457-84e0-25f732f25409" class="">On each iteration <code>callback(item, index, array)</code> is invoked with arguments: <strong>current item</strong>, <strong>index </strong>and the <strong>array </strong>itself. It should return the new item.</p><pre id="a9bf8388-5f5a-4466-94a8-fff8105127ab" class="code code-wrap"><code>const numbers = [0, 2, 4];
+const newNumbers = numbers.map(function increment(number) {
+  return number + 1;
+});
+newNumbers; // =&gt; [1, 3, 5]
+
+
+//Using Arrow function
+const array = [1, 4, 9, 16];
+
+// pass a function to map
+const map = array.map(x =&gt; x * 2);
+
+console.log(ma);
+// expected output: Array [2, 8, 18, 32]
+</code></pre><p id="3a3bcabb-e00a-4bec-8798-8569b0871dd7" class=""><code>numbers.map(increment)</code> creates a new array from <code>numbers</code> by incrementing each array item.</p><ul id="a8f882e3-c636-4a91-a8ca-75f6afc83fec" class="bulleted-list"><li style="list-style-type:disc"><code>array.map()</code> creates a new mapped array, without mutating the original one.</li></ul><ul id="586b5822-1106-46e8-af6d-0afcf69ca8c4" class="bulleted-list"><li style="list-style-type:disc"><code>array.map()</code> method is used for transformation of  data. In <strong>REACT </strong>we can use this to dynamically render <strong>HTML</strong> elements from a given array.</li></ul><p id="22a95cc4-6ae2-43c5-ad54-060e392865cc" class="">
+</p><h3 id="553a0450-6f36-4a95-89f6-a6e0e013e4b8" class="">2.2 <em>Array.from()</em> function</h3><p id="54d6c7a3-8b7d-4523-94bc-4671024dcb74" class="">The <code>Array.from() </code>static method creates a new, shallow-copied Array instance from an array-like or iterable object.</p><p id="bf4b5f41-deb2-4c32-ad25-cdf829fb59f9" class=""><code>Array.from(arrayLike, callback)</code> method creates to a new array by using <code>callback</code> invocation result on each array item.</p><p id="85b6f023-23d3-4f95-b7a8-e3f7bd6796ac" class="">On each iteration <code>callback(itm[, index, array])</code> is invoked with arguments: current item, index and the array itself. It should return the new item.</p><p id="3c28f131-b119-48e1-a364-15e33c08cb97" class="">Let’s increment the numbers of an array:</p><pre id="138131dd-f0f2-4d60-8017-13ebde9b080a" class="code code-wrap"><code>const numbers = [0, 2, 4];
+const newNumbers = Array.from(numbers,
+  function increment(number) {
+    return number + 1;
+  }
+);
+// newNumbers  =&gt; [1, 3, 5]
+// Array.from(numbers, increment) creates a new array from numbers by incrementing each array item.
+
+// Arrow function
+console.log(Array.from([1, 2, 3], x =&gt; x + x));
+// expected output: Array [2, 4, 6]
+
+
+//We can also create an array from a given string
+console.log(Array.from(&#x27;foo&#x27;));
+// expected output: Array [&quot;f&quot;, &quot;o&quot;, &quot;o&quot;]</code></pre><ul id="a999cd04-bd7e-40f8-b1f9-245d0126f2ef" class="bulleted-list"><li style="list-style-type:disc"><code>Array.from()</code> creates a new mapped array, without mutating the original one</li></ul><p id="12733f19-48a6-4aa4-9770-34e8e5fb1245" class="">
+</p><h2 id="039a7767-b76c-4aa8-b29d-f6ff08ffb002" class="">3. Reduce</h2><h3 id="889f124c-014f-4848-8fae-c3f87b8c6fc5" class="">3.1 <em>array.reduce()</em> method</h3><p id="9f20ecc0-e834-48b3-a11a-cd1c7df43068" class="">The <code>reduce()</code> method executes a user-supplied<strong><mark class="highlight-red"> “reducer”</mark></strong> callback function on each element of the array, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the array is a single value.</p><p id="4fe05826-1a2a-48a8-b052-8e6a8d39384d" class="">On each iteration <code>callback(accumulator, item, index, array])</code> is invoked with arguments: accumulator, current item, index and the array itself. It should return the accumulator.</p><p id="166930ca-8a2c-413e-a0e0-505c27cbfec5" class="">Here <code>reduce()</code> is to return the sum of all the elements in an array</p><pre id="55efa8c2-073c-488a-a5d8-174503329039" class="code code-wrap"><code>const array = [1, 2, 3, 4];
+
+function reducer(previousValue, currentValue) {
+	return  previousValue + currentValue
+} 
+
+//Using Arrow funtion
+const reducer = (previousValue, currentValue) =&gt; previousValue + currentValue;
+
+
+// 1 + 2 + 3 + 4
+console.log(array.reduce(reducer));
+// expected output: 10
+
+// 5 + 1 + 2 + 3 + 4
+console.log(array.reduce(reducer, 5));
+// expected output: 15</code></pre><p id="3264da96-2a7f-4633-8edb-4dcd77f0205f" class="">At first step <code>accumulator</code> is initialized with <code>0</code>. Then <code>reducer </code>function is invoked on each array item accumulating the sum of numbers.</p><p id="5e6e4f14-55e4-4b18-86d1-de7aa9fb20c3" class="">In the second example <code>accumulator</code> is initialized with <code>5.</code> Then <code>reducer </code>function is invoked on each array item accumulating the sum of numbers.</p><ul id="7f9decc0-bc21-4074-84ed-3d8a8509f9db" class="bulleted-list"><li style="list-style-type:disc">The first array item becomes the initial value if you skip the <code>initialValue</code> argument.</li></ul><h2 id="956cfd57-e69c-4549-a36f-d8da57496a82" class="">4. Concat</h2><h3 id="5eb7fc8a-da45-454b-8c39-0c180b4db4d1" class="">4.1 <em>array.concat()</em> method</h3><p id="0e26687b-b83d-4225-b2eb-37f27ae4c21c" class="">The <code>concat()</code> method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.</p><p id="c707909f-25e5-4bae-a24f-c1c78ec30241" class="">Let’s concatenate 2 arrays of names:</p><pre id="d32ef981-b119-47f8-99c3-989f709a8a08" class="code code-wrap"><code>const array1 = [&#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;];
+const array2 = [&#x27;d&#x27;, &#x27;e&#x27;, &#x27;f&#x27;];
+const array = array1.concat(array2);
+
+console.log(array);
+// expected output: Array [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;]
+</code></pre><h3 id="9677560b-ffd3-46bc-a1b0-b495ea649fef" class="">Concatenating three arrays</h3><p id="6d191387-dcc7-42d0-822e-933cb10784b0" class="">The following code concatenates three arrays:</p><pre id="2b5b8918-3be4-48b8-a884-7e00631d636d" class="code"><code>const num1 = [1, 2, 3];
+const num2 = [4, 5, 6];
+const num3 = [7, 8, 9];
+
+const numbers = num1.concat(num2, num3);
+
+console.log(numbers);
+// results in [1, 2, 3, 4, 5, 6, 7, 8, 9]</code></pre><h3 id="9b024535-e4b7-4071-a9e3-fbcc59af15be" class="">4.2 Spread operator</h3><p id="4b952f1b-fe55-489a-9288-abd64fab2514" class="">You can use the spread operator with an array literal to concatenate arrays: <code>[...array1, ...array2]</code>.</p><p id="1ed304a1-0cc9-4738-b167-7064c340dbb7" class="">Let’s concatenate 2 arrays of names:</p><pre id="84e8a882-d30a-4c4a-97b7-88bf2fc0ce70" class="code code-wrap"><code>let parts = [&#x27;shoulders&#x27;, &#x27;knees&#x27;];
+
+let lyrics = [&#x27;head&#x27;, ...parts, &#x27;and&#x27;, &#x27;toes&#x27;];
+
+//  [&quot;head&quot;, &quot;shoulders&quot;, &quot;knees&quot;, &quot;and&quot;, &quot;toes&quot;]
+
+let arr1 = [0, 1, 2];
+let arr2 = [3, 4, 5];
+
+arr1 = [...arr1, ...arr2];
+//  arr1 is now [0, 1, 2, 3, 4, 5]</code></pre><ul id="b4d22b14-088d-492a-bbb6-7b131d8d25fe" class="bulleted-list"><li style="list-style-type:disc"><code>[...arr1, ...arr2, ...arrN]</code>: you can concat as many arrays as you need using spread operator.</li></ul><h2 id="fe418942-ff44-4f5f-a5f0-d1f3b62641dd" class="">5. Slice</h2><h3 id="67550412-1911-4153-b0e0-3eb4be4d672d" class="">5.1 <em>array.slice()</em> method</h3><p id="7adb5e96-fb44-41ac-a021-4eb6a391bf92" class="">The<code> slice()</code> method returns a shallow copy of a portion of an array into a new array object selected from start to end (end not included) where start and end represent the <code>index </code>of items in that array. The original array will not be modified.</p><p id="7bd5931c-77e1-4368-b120-cb4ce1144796" class="">Let’s get some array slices:</p><pre id="13382974-5d8e-4b3e-94cb-763902c6348f" class="code code-wrap"><code>const animals = [&#x27;ant&#x27;, &#x27;bison&#x27;, &#x27;camel&#x27;, &#x27;duck&#x27;, &#x27;elephant&#x27;];
+
+console.log(animals.slice(2));
+// expected output: Array [&quot;camel&quot;, &quot;duck&quot;, &quot;elephant&quot;]
+
+console.log(animals.slice(2, 4));
+// expected output: Array [&quot;camel&quot;, &quot;duck&quot;]
+
+console.log(animals.slice(1, 5));
+// expected output: Array [&quot;bison&quot;, &quot;camel&quot;, &quot;duck&quot;, &quot;elephant&quot;]
+
+console.log(animals.slice(-2));
+// expected output: Array [&quot;duck&quot;, &quot;elephant&quot;]
+
+console.log(animals.slice(2, -1));
+// expected output: Array [&quot;camel&quot;, &quot;duck&quot;]
+
+</code></pre><p id="ebe654eb-47fe-4a0f-a95a-00ff3fdbd10e" class=""><code>animals.slice(2)</code> returns a slice of 2 items. The <code>end</code> argument defaults to <code>animals.length</code>.</p><ul id="14533845-90a7-4364-8682-fb73aa64b175" class="bulleted-list"><li style="list-style-type:disc"><code>array.slice()</code> creates a new array, without mutating the original one.</li></ul><h2 id="7348091a-5a2e-4dff-b973-5336f802ef6c" class="">6. Search</h2><h3 id="bc08b0af-4c0c-455b-bc35-d5dc3dd47492" class="">6.1 <em>array.includes()</em> method</h3><p id="9d9c6b30-ecaa-436e-96c2-e8eff31897d0" class="">The<strong> includes() </strong>method determines whether an array includes a certain value among its entries, returning <code>true </code>or <code>false </code>as appropriate.</p><p id="79149d36-7fd8-414d-a2b8-4a1bf26016d0" class=""><code>array.includes(item, fromIndex)</code> returns a <code>boolean </code>whether  <code>array</code>  contains  <code>item</code>. The optional argument <code>fromIndex</code>, defaulting to <code>0</code>, indicates the index to start searching.</p><p id="be049aa0-878e-48b4-8b25-daa5d9a68fcf" class="">Let’s determine if <code>2</code> and <code>99</code> exist in an array of numbers:</p><pre id="cebe4dc4-625e-47fd-936f-6f5e08605fbb" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+numbers.includes(2);  // =&gt; true
+numbers.includes(99); // =&gt; false</code></pre><p id="f2b57895-6822-457b-bca1-07ef4a13af3b" class=""><code>numbers.includes(2)</code> returns <code>true</code> because <code>2</code> exists in <code>numbers</code> array.</p><p id="a40918e1-e635-4595-9814-c07563b38367" class=""><code>numbers.includes(99)</code> is, however, <code>false</code> because <code>numbers</code> doesn’t contain <code>99</code>.</p><ul id="4a638a85-800c-41b1-84c0-6729c8999903" class="bulleted-list"><li style="list-style-type:disc">When comparing strings and characters, <code>includes()</code> is case-sensitive.</li></ul><p id="0553ef24-25b1-4289-a496-7bf9cdd4ebd7" class="">
+</p><h3 id="e17c65ff-d331-46fa-80df-8529c63d8bcc" class="">6.2 <em>array.find()</em> method</h3><p id="549ec9c9-dcb9-4b0d-be5b-749fe990757e" class="">The <code>find()</code> method returns the value of the first element in the provided array that satisfies the provided testing function. If no values satisfy the testing function, <code>undefined </code>is returned.</p><p id="7f5ff0ff-9626-4d10-b4f9-b3aa641477ee" class="">
+</p><p id="85904548-a47e-4030-9359-7af3600f4b4e" class="">On each iteration <code>predicate(item, index, array)</code> function is invoked with the arguments: iterated item, index and the array itself.</p><p id="7031fda0-0db1-42e2-940b-b486ce1207ef" class="">For example, let’s find the first even number:</p><pre id="5d4dfea9-854f-439d-b75d-0292352709b0" class="code code-wrap"><code>const numbers = [1, 2, 3, 4, 5];
+function isEven(number) {
+  return number % 2 === 0;
+}
+const evenNumber = numbers.find(isEven);
+evenNumber; // =&gt; 2
+
+// Using Arrow function
+const array1 = [5, 12, 8, 130, 44];
+
+const found = array1.find(element =&gt; element &gt; 10);
+
+console.log(found);
+// expected output: 12</code></pre><p id="3b52bca0-4452-4b87-be31-3934437b3d7f" class="">
+</p><h3 id="7cc363df-7956-4ed0-a2c9-edc6186cce7a" class="">6.3 <em>array.indexOf()</em> method</h3><p id="c598cd94-5c9f-4603-b284-b959fb77e3d7" class=""><code>array.indexOf(item,fromIndex)</code> returns the index of the first appearance <code>item</code> in <code>array</code>. The optional argument <code>fromIndex</code>, defaulting to <code>0</code>, is the index to start searching.</p><p id="56725592-c4f3-4305-8d34-c2849b8c9520" class="">Let’s find the index of <code>&#x27;Joker&#x27;</code>:</p><pre id="94209b4b-a261-493f-a565-0eee53adbbaf" class="code code-wrap"><code>const names = [&#x27;Batman&#x27;, &#x27;Catwoman&#x27;, &#x27;Joker&#x27;, &#x27;Bane&#x27;];
+const index = names.indexOf(&#x27;Joker&#x27;);
+index; // =&gt; 2</code></pre><h2 id="ec2a8fe6-dec8-402f-9c2c-b8cecaefc9c4" class="">7. Filter</h2><h3 id="6bd9423a-4f9a-4033-ae1e-528000010e8d" class="">7.1 <em>array.filter()</em></h3><p id="444b8432-17c0-4b0d-9dcc-110fa9ef1b47" class="">
+</p><p id="427ca96e-9f49-4ce1-b324-e6a10f5e6903" class="">The<code> filter() </code>method creates a new array with all elements that pass the test implemented by the provided function.</p><p id="22c398ca-3d31-45ca-85e9-328554c66f77" class="">On each iteration <code>predicate(item, index, array)</code> function is invoked with the arguments: iterated item, index and the array itself.</p><p id="443c008c-fbb5-4694-a4c0-6b6cad72b8ee" class="">Let’s filter an array to have only even numbers:</p><pre id="e5e706bf-2b80-4d90-98bc-567f4360b8bc" class="code code-wrap"><code>const numbers = [1, 5, 7, 10];
+function isEven(number) {
+  return number % 2 === 0;
+}
+const evens = numbers.filter(isEven);
+evens; // =&gt; [10]
+
+//Arrow function 
+const words = [&#x27;spray&#x27;, &#x27;limit&#x27;, &#x27;elite&#x27;, &#x27;exuberant&#x27;, &#x27;destruction&#x27;, &#x27;present&#x27;];
+
+const result = words.filter(word =&gt; word.length &gt; 6);
+
+console.log(result);
+// expected output: Array [&quot;exuberant&quot;, &quot;destruction&quot;, &quot;present&quot;]</code></pre><h2 id="6d61e56f-7e09-44b7-92c6-9a5754d2e34c" class="">8. Insert</h2><h3 id="ed1a338d-4992-4fe4-8c5a-3d66189f510d" class="">8.1 <em>array.push()</em> method</h3><p id="ffbcf004-c6a1-424d-80c5-4fb35a226495" class="">The <code>push()</code> method adds one or more elements to the end of an array and returns the new length of the array.</p><p id="2ae265ff-486a-449f-9304-47556a616a25" class=""><code>array.push(item1,item2,..., itemN)</code> method appends one or more items to the end of an array, returning the new length.</p><pre id="00d754a1-0b57-4c07-a28f-51b55605dc7f" class="code code-wrap"><code>let sports = [&#x27;soccer&#x27;, &#x27;baseball&#x27;]
+let total = sports.push(&#x27;football&#x27;, &#x27;swimming&#x27;)
+
+console.log(sports)  // [&#x27;soccer&#x27;, &#x27;baseball&#x27;, &#x27;football&#x27;, &#x27;swimming&#x27;]
+console.log(total)   // 4</code></pre><ul id="9d2af50b-2214-4cd9-8c3f-2e94c2cfcfa7" class="bulleted-list"><li style="list-style-type:disc"><code>array.push()</code> mutates the array in place</li></ul><ul id="dc76dd4e-bb4f-4fb9-b90d-9cc33624a194" class="bulleted-list"><li style="list-style-type:disc"><code>array.push(item1, item2, ..., itemN)</code> can push multiple items.</li></ul><h2 id="457c00e5-73f7-44c1-826b-78e5a91c9d80" class="">9. Remove</h2><h3 id="a9acc0fd-70eb-4685-879b-f203c1799da1" class="">9.1 <em>array.pop()</em> method</h3><p id="5ff25db4-7fe9-46e1-9736-0cd6c35006aa" class=""><code>array.pop()</code> method removes the last item from an array, then returns that item.</p><pre id="30c24768-f987-4f24-89e0-b7806207eaaf" class="code code-wrap"><code>const colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;black&#x27;];
+const lastColor = colors.pop();
+lastColor; // =&gt; &#x27;black&#x27;
+colors; // =&gt; [&#x27;blue&#x27;, &#x27;green&#x27;]</code></pre><p id="4cd7cbdb-dfc8-4457-afb8-bf0fe4eecbf1" class=""><code>colors.pop()</code> removes the last element of <code>colors</code> and returns it.</p><ul id="d777b20d-0e31-4562-b6fb-9da33e51a404" class="bulleted-list"><li style="list-style-type:disc"><code>array.pop()</code> mutates the array in place.</li></ul><h3 id="7e2acf09-2dee-4339-ab1d-12192e676169" class="">9.2 <em>array.shift()</em> method</h3><p id="2f40ca9b-05e9-447e-93e0-9cc3da7427db" class=""><code>array.shift()</code> method removes the first item from an array, then returns that item.</p><p id="5518b6ce-ee4a-462e-aac9-a8fcca7ed03e" class="">For example, let’s remove the first element of <code>colors</code> array:</p><pre id="e5e1cf71-f84f-40d6-9326-74c7705f01fb" class="code code-wrap"><code>const colors = [&#x27;blue&#x27;, &#x27;green&#x27;, &#x27;black&#x27;];
+const firstColor = colors.shift();
+firstColor; // =&gt; &#x27;blue&#x27;
+colors; // =&gt; [&#x27;green&#x27;, &#x27;black&#x27;]</code></pre><p id="9407ce39-db86-4af2-8a0b-4e757118a55a" class=""><code>colors.shift()</code> removes the first element <code>&#x27;blue&#x27;</code> of <code>colors</code> and returns it.</p><h2 id="eb1e3453-889e-4c9d-a746-f5ab44bd498c" class="">10. Sort</h2><h3 id="d99e408e-77e7-4ff3-8c92-2ae59c4e5b42" class="">10.1 <em>array.sort()</em> method</h3><p id="aa724cbf-7638-4fd6-88cd-daf8c00731c1" class="">The <code>sort()</code> method sorts the elements of an array and returns the sorted array. The default sort order is ascending, built upon converting the elements into strings, then comparing their sequences of UTF-16 code units values.</p><p id="15484f2b-2567-4c13-8b3f-dff2cacd5a9d" class="">The optional argument <code>compare(a, b)</code> is a callback that customizes the order of items. </p><p id="d8e93741-29fc-4ed9-81f5-43456c25a2ce" class="">If <code>a</code> and <code>b</code> are two elements being compared, then:</p><ul id="747ec164-bbb4-4280-8ccf-ef3ccb6719bd" class="bulleted-list"><li style="list-style-type:disc">If <code>compare(a, b)</code> returns a value &gt; than 0, sort <code>b</code> before <code>a</code>.</li></ul><ul id="a8514496-386f-4786-8fff-2539890362cf" class="bulleted-list"><li style="list-style-type:disc">If <code>compare(a, b)</code> returns a value &lt; than 0, sort <code>a</code> before <code>b</code>.</li></ul><ul id="044e6dc9-b584-4075-9e9a-cc21262ad5c5" class="bulleted-list"><li style="list-style-type:disc">If <code>comparFunction(a, b)</code> returns 0, <code>a</code> and <code>b</code> are considered equal.</li></ul><p id="d61a4861-1edc-42c4-a8ae-faa07ddfeae6" class="">Let’s sort an array of letters:</p><pre id="4f738cdc-00b0-4990-ae49-b385778f8a90" class="code code-wrap"><code>const letters = [&#x27;B&#x27;, &#x27;C&#x27;, &#x27;A&#x27;];
+letters.sort();
+letters; // =&gt; [&#x27;A&#x27;, &#x27;B&#x27;, &#x27;C&#x27;]</code></pre><p id="ee514462-7aa3-446a-90d2-5efb611e3fb2" class=""><code>letters.sort()</code> sorts the letters in ascending order.</p><p id="b0d9194b-512c-47bf-bba6-818669464b9d" class="">We can sort an array of numbers like this.</p><pre id="0d436abb-8040-4160-ab6b-7e27337c1ce3" class="code code-wrap"><code>var numbers = [4, 2, 5, 1, 3];
+numbers.sort(function(a, b) {
+  return a - b;
+});
+console.log(numbers);
+// [1, 2, 3, 4, 5]
+
+//Arrow function
+numbers.sort((a,b)=&gt;a-b);
+
+console.log(numbers);
+// [1, 2, 3, 4, 5]</code></pre><p id="a306f470-4766-4ef5-bd77-0a51e7aca9b5" class="">
+</p><p id="e1b671ad-708e-4d6a-9650-52837385ccb6" class="">These are some of array methods which are more frequently used.  If you want to learn more about JavaScript <strong>array </strong>method then <mark class="highlight-blue"><strong><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">MDN </a></strong></mark>is a very good resource.</p><p id="8905521e-c076-4afd-a163-0c9f228a63a0" class="">
+</p></div></article></body></html>

@@ -202,3 +202,18 @@ ul {
   margin: 0rem 0.5rem;
   font-weight: bold;
 }
+.blog-container {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+.blog {
+  border: #eef2ff solid 1px;
+  margin: 1rem 0rem;
+  padding: 0rem 0.5rem;
+}
+
+.blog > p {
+  text-align: start;
+  font-size: large;
+}
