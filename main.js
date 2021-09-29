@@ -13,67 +13,67 @@ const listsOfProject = [
         title: "Profit or Loss",
         src: "./images/profit-loss.png",
         gitUrl: "https://github.com/JantuDeb/profit-loss-calculator",
-        previewUrl: "#"
+        previewUrl: "https://profit-loss-calcu.netlify.app/"
     },
     {
         title: "Palindrome Birthdays",
         src: "./images/pelindrome.png",
         gitUrl: "https://github.com/JantuDeb/pelindrome-birthday",
-        previewUrl: "#"
+        previewUrl: "https://pelindrome-birthday.netlify.app/"
     },
     {
         title: "Fun With Triangle",
         src: "./images/triangle.png",
         gitUrl: "https://github.com/JantuDeb/fun-with-triangles",
-        previewUrl: "#"
+        previewUrl: "https://triangles-1.netlify.app/"
     },
 
     {
         title: "Is your birthday lucky",
         src: "./images/lucky-birthday.png",
         gitUrl: "https://github.com/JantuDeb/lucky-birthday",
-        previewUrl: "#"
+        previewUrl: "https://lucky1birthday.netlify.app/"
     },
     {
         title: "Cash register manager",
         src: "./images/cash-maneger.png",
         gitUrl: "https://github.com/JantuDeb/cash-register-app",
-        previewUrl: "#"
+        previewUrl: "https://cash-maneger.netlify.app/"
     },
     {
         title: "Book store App",
         src: "./images/book-store.png",
         gitUrl: "https://github.com/JantuDeb/book-store-app",
-        previewUrl: "#"
+        previewUrl: "https://booksrecommendation.netlify.app/"
     },
     {
         title: "Get to know flags of a country",
         src: "./images/flags.png",
         gitUrl: "https://github.com/JantuDeb/countries-and-flag",
-        previewUrl: "#"
+        previewUrl: "https://flagsofcountry.netlify.app/"
     },
     {
         title: "Translate your text to yoda language",
         src: "./images/yoda.png",
         gitUrl: "https://github.com/JantuDeb/yoda-translator",
-        previewUrl: "#"
+        previewUrl: "https://startwaryoda.netlify.app/"
     },
     {
         title: "Bananaaa speaking App",
         src: "./images/banana.png",
         gitUrl: "https://github.com/JantuDeb/banana-speaking-app",
-        previewUrl: "#"
+        previewUrl: "https://minions-bananaa.netlify.app/"
     },
     {
         title: "Science Quiz",
         src: "./images/quiz-science.png",
-        gitUrl: "#",
+        gitUrl: "https://github.com/JantuDeb/cli-quiz-app",
         previewUrl: "https://replit.com/@JantuDeb/markOne-cli-quiz-app?embed=1&output=1"
     },
     {
         title: "How do you know me",
         src: "./images/quiz.png",
-        gitUrl: "#",
+        gitUrl: "https://replit.com/@JantuDeb/quiz-1",
         previewUrl: "https://replit.com/@JantuDeb/quiz-1?embed=1&output=1#index.js"
     },
 ]
@@ -108,7 +108,7 @@ function addItemToList(project) {
     const previewLink = document.createElement("a")
     previewLink.className = "link-preview"
     previewLink.href = project.previewUrl
-    previewLink.innerText = "Preview"
+    previewLink.innerText = "View Site"
 
 
     linksDiv.appendChild(githubLink)
