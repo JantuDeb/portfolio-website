@@ -104,12 +104,15 @@ function addItemToList(project) {
     githubLink.className = "link-github"
     githubLink.href = project.gitUrl
     githubLink.innerText = "GitHub"
+    githubLink.target = "_blank"
+    githubLink.referrerPolicy = "no-referrer"
 
     const previewLink = document.createElement("a")
     previewLink.className = "link-preview"
     previewLink.href = project.previewUrl
     previewLink.innerText = "View Site"
-
+    previewLink.target = "_blank"
+    previewLink.referrerPolicy = "no-referrer"
 
     linksDiv.appendChild(githubLink)
     linksDiv.appendChild(previewLink)
