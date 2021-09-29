@@ -209,11 +209,18 @@ ul {
 }
 .blog {
   border: #eef2ff solid 1px;
-  margin: 1rem 0rem;
+  margin: 2rem 0rem;
   padding: 0rem 0.5rem;
 }
 
 .blog > p {
   text-align: start;
   font-size: large;
+}
+
+.blog-footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
