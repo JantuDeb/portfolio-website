@@ -1,0 +1,673 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>How to use Tailwind CSS</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+}
+.highlight-gray {
+	color: rgb(155,154,151);
+}
+.highlight-brown {
+	color: rgb(100,71,58);
+}
+.highlight-orange {
+	color: rgb(217,115,13);
+}
+.highlight-yellow {
+	color: rgb(223,171,1);
+}
+.highlight-teal {
+	color: rgb(15,123,108);
+}
+.highlight-blue {
+	color: rgb(11,110,153);
+}
+.highlight-purple {
+	color: rgb(105,64,165);
+}
+.highlight-pink {
+	color: rgb(173,26,114);
+}
+.highlight-red {
+	color: rgb(224,62,62);
+}
+.highlight-gray_background {
+	background: rgb(235,236,237);
+}
+.highlight-brown_background {
+	background: rgb(233,229,227);
+}
+.highlight-orange_background {
+	background: rgb(250,235,221);
+}
+.highlight-yellow_background {
+	background: rgb(251,243,219);
+}
+.highlight-teal_background {
+	background: rgb(221,237,234);
+}
+.highlight-blue_background {
+	background: rgb(221,235,241);
+}
+.highlight-purple_background {
+	background: rgb(234,228,242);
+}
+.highlight-pink_background {
+	background: rgb(244,223,235);
+}
+.highlight-red_background {
+	background: rgb(251,228,228);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(55, 53, 47, 0.6);
+	fill: rgba(55, 53, 47, 0.6);
+}
+.block-color-brown {
+	color: rgb(100,71,58);
+	fill: rgb(100,71,58);
+}
+.block-color-orange {
+	color: rgb(217,115,13);
+	fill: rgb(217,115,13);
+}
+.block-color-yellow {
+	color: rgb(223,171,1);
+	fill: rgb(223,171,1);
+}
+.block-color-teal {
+	color: rgb(15,123,108);
+	fill: rgb(15,123,108);
+}
+.block-color-blue {
+	color: rgb(11,110,153);
+	fill: rgb(11,110,153);
+}
+.block-color-purple {
+	color: rgb(105,64,165);
+	fill: rgb(105,64,165);
+}
+.block-color-pink {
+	color: rgb(173,26,114);
+	fill: rgb(173,26,114);
+}
+.block-color-red {
+	color: rgb(224,62,62);
+	fill: rgb(224,62,62);
+}
+.block-color-gray_background {
+	background: rgb(235,236,237);
+}
+.block-color-brown_background {
+	background: rgb(233,229,227);
+}
+.block-color-orange_background {
+	background: rgb(250,235,221);
+}
+.block-color-yellow_background {
+	background: rgb(251,243,219);
+}
+.block-color-teal_background {
+	background: rgb(221,237,234);
+}
+.block-color-blue_background {
+	background: rgb(221,235,241);
+}
+.block-color-purple_background {
+	background: rgb(234,228,242);
+}
+.block-color-pink_background {
+	background: rgb(244,223,235);
+}
+.block-color-red_background {
+	background: rgb(251,228,228);
+}
+.select-value-color-default { background-color: rgba(206,205,202,0.5); }
+.select-value-color-gray { background-color: rgba(155,154,151, 0.4); }
+.select-value-color-brown { background-color: rgba(140,46,0,0.2); }
+.select-value-color-orange { background-color: rgba(245,93,0,0.2); }
+.select-value-color-yellow { background-color: rgba(233,168,0,0.2); }
+.select-value-color-green { background-color: rgba(0,135,107,0.2); }
+.select-value-color-blue { background-color: rgba(0,120,223,0.2); }
+.select-value-color-purple { background-color: rgba(103,36,222,0.2); }
+.select-value-color-pink { background-color: rgba(221,0,129,0.2); }
+.select-value-color-red { background-color: rgba(255,0,26,0.2); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dcb2339f-0caa-4d38-a44b-142022bb7d39" class="page sans"><header><h1 class="page-title">How to use Tailwind CSS</h1><table class="properties"><tbody><tr class="property-row property-row-created_by"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesCreatedBy"><path d="M13.125,10.0354 C12.5536,9.48588 10.801,8.53125 9.625,7.875 L9.625,7.04112 C9.849,6.71912 10.045,6.37 10.1911,5.98588 C10.5849,5.7435 10.9375,5.28412 10.9375,4.8125 C10.9375,4.35488 10.9323,3.94275 10.4668,3.605 C10.3049,1.5575 9.436,0 7,0 C4.564,0 3.69513,1.5575 3.53325,3.605 C3.06775,3.94275 3.0625,4.35488 3.0625,4.8125 C3.0625,5.28412 3.41513,5.7435 3.80888,5.98588 C3.955,6.37 4.151,6.71912 4.375,7.04112 L4.375,7.875 C3.199,8.53125 1.44638,9.48588 0.875,10.0354 C0.1645,10.7188 0,11.8125 0,14 L14,14 C14,11.8125 13.8364,10.7188 13.125,10.0354 Z"></path></svg></span>Created By</th><td><span class="user"><span class="icon text-icon user-icon"><span class="user-icon-inner">J</span></span>Jantu</span></td></tr><tr class="property-row property-row-date"><th><span class="icon property-icon"><svg viewBox="0 0 14 14" style="width:14px;height:14px;display:block;fill:rgba(55, 53, 47, 0.4);flex-shrink:0;-webkit-backface-visibility:hidden" class="typesDate"><path d="M10.8889,5.5 L3.11111,5.5 L3.11111,7.05556 L10.8889,7.05556 L10.8889,5.5 Z M12.4444,1.05556 L11.6667,1.05556 L11.6667,0 L10.1111,0 L10.1111,1.05556 L3.88889,1.05556 L3.88889,0 L2.33333,0 L2.33333,1.05556 L1.55556,1.05556 C0.692222,1.05556 0.00777777,1.75556 0.00777777,2.61111 L0,12.5 C0,13.3556 0.692222,14 1.55556,14 L12.4444,14 C13.3,14 14,13.3556 14,12.5 L14,2.61111 C14,1.75556 13.3,1.05556 12.4444,1.05556 Z M12.4444,12.5 L1.55556,12.5 L1.55556,3.94444 L12.4444,3.94444 L12.4444,12.5 Z M8.55556,8.61111 L3.11111,8.61111 L3.11111,10.1667 L8.55556,10.1667 L8.55556,8.61111 Z"></path></svg></span>Date</th><td><time>@September 30, 2021</time></td></tr></tbody></table></header><div class="page-body"><p id="2abc2a6a-2532-4cdc-ae80-fc09d77f0e7e" class=""><strong>What is Tailwind CSS</strong></p><p id="84effdc9-2b24-4ae2-8912-df20d3c2187c" class="">Tailwind is a utility-first CSS framework, which provides a set of helper classes. By using these classes we can create layout rapidly. If you use Tailwind CSS, you don&#x27;t need to write different style using media query for different screen sizes. You can use Tailwind&#x27;s responsive utilities to handle it easily.</p><p id="9d18f9bf-31bf-477f-a339-3fd5abe536da" class="">
+</p><p id="da9004f0-a59f-4d18-a0dd-5f9b78392daf" class=""><strong>Do we need to use Tailwind CSS?</strong>
+So,  It depends we can build a minimal prototype by using Tailwind very fast. The development time is very fast because it comes with plenty of utility classes for everything we need in a project. Although we can achieve this with vanilla CSS.</p><p id="06984c21-25ea-4c8a-8700-eba9bdb42de0" class="">
+</p><p id="f2ce2ee1-2374-469c-9dbe-4f5fc47c167b" class=""><strong>How to setting up a project with Tailwind  CSS</strong></p><p id="58e6a4b4-d23a-4ccf-971f-60bf7cb6f097" class="">We can use <code>npm</code> to  get started with tailwind  or we can use Tailwind CSS , <code>npm </code>is preferred way to install Tailwind. </p><p id="d37df65f-c8c1-46e0-8853-f2243a033d8f" class="">We can start by creating a project folder, let&#x27;s name it  <code>tailwind-sample</code> . Now we can open this folder in VS code editor.</p><p id="ea811ffa-fd15-4c88-8aac-feff894c2635" class="">Now we need to create a <code><em>package.json</em></code> file by using <code>npm </code>command in the following way.</p><p id="3010238b-50a6-46d4-95cc-01e5842219c4" class=""><code> $ npm init -y</code> </p><p id="df0f436b-5f95-4ff5-8e84-c4cf09ae6925" class="">Run this command in terminal of your vs code editor. Now we can use <code>npm </code>to add dependency to our project.</p><p id="a755a8d6-e913-481f-b020-8d45688eddfe" class="">We start by installing Tailwind CSS using following command.</p><p id="9f1c7c5c-9635-4c2a-b5c3-cf38a6d0296d" class=""><code>$ npm install tailwindcss</code></p><p id="f6f6231a-1814-4c4d-8655-434ca67a13b4" class="">This command will downloaded tailwind CSS and saved it to <code>node_modules</code> folder.</p><p id="4782e53a-3f26-4c72-9bbc-e65631dcecb2" class="">We will create a<code> css/style.css</code> file and add these @tailwind directive  to import Tailwind’s base, components, and utilities styles.</p><pre id="6d384149-fbc6-4988-9794-91e0b6793644" class="code"><code>@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;</code></pre><p id="198dd8cc-d965-4516-a58b-40e571f0e4be" class="">
+</p><p id="fbefc085-1eb1-4832-965f-b5ae1113eb5b" class="">The next step is to create a initial Tailwind configuration file by using the following command in project folder.</p><p id="8838e743-8586-4ab7-953e-2bff52b38a7e" class=""><code>$ npx tailwindcss init</code></p><p id="6eb9cd2b-a418-427d-ad61-5ed08ff12d6c" class="">This will create a <code>tailwind.config.js</code> in your root folder with the following content.</p><pre id="a0bd1d92-8b0c-41ce-a3ba-a653cf3c1104" class="code"><code>//tailwind.config.js
+module.exports = {
+  purge: [],
+  darkMode: false, // or &#x27;media&#x27; or &#x27;class&#x27;
+  theme: {
+    extend: {},
+  },
+  variants: {
+    extend: {},
+  },
+  plugins: [],
+}</code></pre><p id="f64bc6d5-ba65-4229-8622-c8b71a11ee58" class="">Now, we will use <code>PostCSS </code>as a build processor for tailwind also we need a additional plugin called <code>autoprefixer</code> .</p><p id="5b0d0582-8c3f-43bb-a96a-3aa460b83fbc" class="">Let&#x27;s install <mark class="highlight-blue"><em>PostCSS </em></mark>and <mark class="highlight-blue"><em>autoprefixer </em></mark><em> </em>by using following command.</p><p id="6472dd3e-ae7a-41cf-848f-73629261c611" class=""><code>$ npm install postcss-cli autoprefixer@latest</code></p><p id="c53bd713-bced-4b25-a299-d19aa844e9d9" class="">Let&#x27;s create a <mark class="highlight-blue"><em>PostCSS </em></mark>configuration file named <code>postcss.config.js</code> in our project root folder.</p><p id="9199fc35-1e35-4a7a-a2db-715f5464384d" class="">We will add the following content in newly created <code>postcss.config.js</code> file.</p><pre id="d244c337-6327-4820-bb5e-4921d00a788b" class="code"><code>module.exports = {
+    plugins: [
+        require(&#x27;tailwindcss&#x27;),
+        require(&#x27;autoprefixer&#x27;),
+    ]
+}</code></pre><p id="e2d79e15-10f1-4c87-8e78-764f5e9cf8ca" class="">With this the <mark class="highlight-blue">PostCSS </mark>process will perform CSS processing with the <mark class="highlight-blue">tailwindcss </mark>and the <mark class="highlight-blue">autoprefixer </mark>plugins.</p><p id="e46af56a-bf15-4522-93e4-2d4de4f777aa" class="">The last step is to create a build script to execute  PostCSS processing for file <code>css/styles.css </code> and it will create a build CSS file in the given location. </p><p id="778a16c4-86ca-4e2e-b235-cb7703bd5a57" class="">Let&#x27;s add the following build command  in our  <code><em>package.json</em></code><em> file.</em></p><p id="2ed852e2-b6e0-402d-a7c1-1915e60538f2" class=""><code>&quot;build&quot;: &quot;postcss css/styles.css -o build/styles.css&quot;</code></p><p id="6753e1ad-e71b-4165-adeb-e35a90ef9ecc" class="">To execute this script we need to run the following build command.</p><p id="e62b58c8-f0db-4509-a931-7969cc479748" class=""><code>$ npm run build</code></p><p id="3041217a-4492-48c7-b43d-92c2b0528379" class="">So, we have successfully installed and configured Tailwind CSS for our project,  now we can create HTML and start creating our layouts with Tailwind CSS.</p><p id="2d0ba653-1c22-48e7-a885-d44472988590" class="">Now create a <code>index.html</code> in root folder of our project and link the generated <code>build/styles.css</code> file to html.</p><p id="7891a3f3-34ce-4973-af1b-b6b6ee5872f3" class="">Let&#x27;s create a card layout using Tailwind CSS</p><p id="f1be152b-8fbc-4746-b0eb-14392ff89cbc" class="">
+</p><pre id="3a31436d-85ff-487a-9449-02bffff5cd7d" class="code"><code>&lt;div class=&quot;w-64 rounded-lg shadow-lg text-center bg-indigo-600 text-white p-4&quot;&gt;
+	&lt;h1 class=&quot;text-xl font-bold m-2&quot;&gt;This is the card title&lt;/h1&gt;
+	&lt;p&gt;Lorem ipsum dolor sit amet consectetur adipisicing elit.
+  Aliquid amet quaerat eos! Doloremque molestiae voluptate, eos 
+  architectoaccusantium atque voluptas sapiente vitae repellat 
+  dolores saepe minima. Ratione mollitia magni saepe. &lt;/p&gt;
+
+	&lt;button type=&quot;submit&quot; class=&quot;bg-white text-blue-800 m-4 rounded-md p-2 hover:text-blue-700 hover:bg-gray-200&quot;&gt;
+	Clicked Me
+	&lt;/button&gt;
+&lt;/div&gt;</code></pre><figure id="2de05ce0-1187-40cc-b585-8ae9a47e0c21" class="image"><a href="./images/untitled.png"><img style="width:587px" src="./images/untitled.png"/></a></figure><p id="40fdc5a8-1752-40a4-aba9-ea46afb41c81" class="">This is the result, you can it&#x27;s very simple to create this card component using tailwind utility classes.</p><p id="3d084e16-a2a7-40b9-b5a5-9f42e4d0321b" class="">Now, let me explain each of the classes we have used to create this card.</p><p id="30815692-721a-4ae0-a1af-f2d841b2bbff" class=""><code>w-64 </code> : this specifies a width of 16rem.</p><p id="16190d3b-c062-4dc6-b7dd-6d6d78b68f0a" class=""><code>rounded-lg</code> : creates a border-radius of 0.5rem.</p><p id="7b94c030-3255-42b5-bfcf-1c4ca41c7533" class=""><code>shadow-lg</code> : it created a <code>box shadow : 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);</code></p><p id="8faf9584-b070-4cc9-a265-c2131f4ddc94" class=""><code>text-center</code> : it centers the text,<code> text-align: center;</code></p><p id="ab9d0a39-df04-4569-a29e-fedba86a34e3" class=""><code>bg-indigo-600 </code>: this specifies the indigo background color, follow the link to know more about tailwind colors  follow this <span style="border-bottom:0.05em solid"><strong><mark class="highlight-blue"><a href="https://tailwindcss.com/docs/customizing-colors">documentation </a></mark></strong></span></p><p id="7bfe0cde-c6d0-4a76-8ff9-53d16b6af857" class=""><code>text-white</code> : this specifies <code>color: white</code>;</p><p id="6d18c4b3-9248-4fa1-aa06-b16d6d53f8b3" class=""><code> p-4</code> : this specifies <code>padding:0.5rem;</code></p><p id="747a7119-6641-41c8-879f-dbd9d02e53bc" class="">
+</p><p id="251b2409-e7f6-45c8-8928-1e1d106ea5d9" class="">To know more about Tailwind CSS follow this tailwind<strong><mark class="highlight-blue"> </mark></strong><span style="border-bottom:0.05em solid"><strong><mark class="highlight-blue"><a href="https://tailwindcss.com/docs">docs </a></mark></strong></span></p><p id="1137bdb1-f99c-46e0-8f46-d9c8ff480768" class="">For reference you can use this sample project from git <mark class="highlight-blue"><a href="https://github.com/JantuDeb/tailwind-sample"><code>tailwind sample</code></a></mark></p><h1 id="bede877c-baa9-4890-8e52-cff0ef5ae3f0" class="">Conclusion</h1><p id="2f02875a-6ee2-42df-aa1d-5d82bf35ac03" class="">Tailwind CSS provides you with a set of utility classes which can be used to create you unique and custom design with ease. Tailwind CSS is not opinionated, so you’re completely free in choosing the design of elements and components on your website.</p><p id="6854692a-b575-4731-bbef-6fd98f62ae6f" class="">
+</p></div></article></body></html>

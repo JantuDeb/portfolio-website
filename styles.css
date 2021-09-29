@@ -13,7 +13,7 @@ body {
 }
 .navigation {
   margin: auto;
-  max-width: 80%;
+  /* max-width: 80%; */
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   background-color: var(--primary-color);
@@ -131,7 +131,7 @@ p {
   display: block;
   margin: auto;
   margin-top: 1.5rem;
-  max-width: 80%;
+  /* max-width: 80%; */
   padding: 2rem 0rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
