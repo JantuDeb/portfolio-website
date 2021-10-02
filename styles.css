@@ -32,8 +32,7 @@ body {
   font-family: "Satisfy", cursive;
 }
 
-.list-item-inline {
-  display: inline;
+.list-item {
   padding: 0rem 0.5rem;
   margin: 1rem 0.5rem;
 }
@@ -46,6 +45,8 @@ body {
 }
 
 .nav-pills {
+  display: flex;
+  flex-wrap: wrap;
   text-align: right;
   padding: 0rem 1.5rem;
 }
@@ -137,8 +138,10 @@ p {
 
 .footer {
   background-color: var(--primary-color);
-  display: block;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-top: 1.5rem;
   /* max-width: 80%; */
   padding: 2rem 0rem;
@@ -226,10 +229,9 @@ ul {
   text-align: start;
   font-size: large;
 }
-
-.blog-footer {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.list {
+  display: flex;
+}
+.list > .list-item > a:hover {
+  text-decoration: underline;
 }
