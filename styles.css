@@ -24,6 +24,19 @@ body {
   justify-content: space-around;
 }
 
+@media only screen and (max-width: 764px) {
+  .navigation {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+  }
+  .brand-name {
+    margin: 0;
+  }
+}
+
 .brand-name {
   text-align: left;
   font-weight: bold;
