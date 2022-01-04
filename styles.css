@@ -150,22 +150,18 @@ p {
 }
 
 .footer {
+  position: absolute;
   background-color: var(--primary-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 1.5rem;
+  /* margin-top: 1.5rem; */
   /* max-width: 80%; */
   padding: 2rem 0rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   color: white;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  
 }
 
 .footer > h3,
