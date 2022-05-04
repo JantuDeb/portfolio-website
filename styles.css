@@ -164,7 +164,9 @@ p {
   justify-content: center;
   align-items: center;
   margin-top: 1.5rem; 
-  max-width: 80%;
+  right: 0;
+  left: 0;
+  max-width: 100%;
   padding: 2rem 0rem;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
